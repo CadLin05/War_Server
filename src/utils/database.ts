@@ -1,0 +1,12 @@
+import mysql from "mysql2/promise";
+import config from "../core/config.js"
+
+export default mysql.createPool({
+  host: config.database.host,
+  user: config.database.user,
+  password: config.database.password,
+  database: config.database.database,
+  waitForConnections: true,
+  connectionLimit: 1,
+  queueLimit: 0,
+});
