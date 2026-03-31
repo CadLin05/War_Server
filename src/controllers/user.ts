@@ -1,14 +1,14 @@
 import { type ResultSetHeader, type RowDataPacket } from "mysql2";
 import pool from "../utils/database.js";
-import type { ClientSafeUser, User } from "../types/user.js";
+import type { User } from "../types/user.js";
 import { hashPassword } from "../utils/passwords.js";
 
-export const registerUser = async (name: string, password: string) => {
+export const registerUser = async (username: string, password: string) => {
   const hashedPassword = await hashPassword(password);
 
   const data = await pool.execute<ResultSetHeader>(
     "INSERT INTO user(username,password) VALUES(?,?)",
-    [name, hashedPassword],
+    [username, hashedPassword],
   );
 
   if (data[0].affectedRows > 0) {
@@ -21,10 +21,10 @@ export const registerUser = async (name: string, password: string) => {
 //links to logging in 
 
 
-export const getUserByName = async (name: string) => {
+export const getUserByName = async (username: string) => {
   const data = await pool.execute<(User & RowDataPacket)[]>(
     "SELECT * from user WHERE name=?",
-    [name],
+    [username],
   );
 
   return data[0][0];

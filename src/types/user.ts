@@ -4,7 +4,3 @@ export interface User {
   password: Buffer;
 }
 
-export interface ClientSafeUser {
-  id: number;
-  name: string;
-}
