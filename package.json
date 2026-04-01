@@ -17,7 +17,8 @@
   "scripts": {
     "server": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
     "client": "cd ../War_Client && npm run dev",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start:dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/main.js\""
   },
   "dependencies": {
     "cors": "^2.8.6",
