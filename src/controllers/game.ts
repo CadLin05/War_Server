@@ -2,16 +2,18 @@
 
 import { type ResultSetHeader, type RowDataPacket } from "mysql2";
 import pool from "../utils/database.js";
+
+/*
 import type { Request, Response } from "express";
 import type { game } from '../types/game.js';
 import { authenticate } from "../middleware/auth.js";
-import { timeStamp } from "node:console";
+import { timeStamp } from "node:console";*/
 
-export const saveGame = async(game_Id: number, user_Id: number, result: string, rounds: number, time: Date) =>{
+export const saveGame = async(user_id: number, result: string, rounds: number) =>{
    const timevar = new Date();
-    const data = await pool.execute<ResultSetHeader>(
-        "INSERT INTO game(game_Id,result,rounds,timedate) VALUES(?,?,?)",
-        [game_Id, user_Id, result, rounds, timevar],
+    await pool.execute<ResultSetHeader>(
+        "INSERT INTO game(user_Id,result,rounds,time) VALUES(?,?,?,?)",
+        [user_id, result, rounds, timevar],
       );
 
 }

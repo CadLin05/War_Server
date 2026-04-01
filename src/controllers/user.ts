@@ -32,10 +32,10 @@ export const getUserByName = async (username: string) => {
 
 
 //copied from past assignment, might work might not
-export const getHistoryById = async(user_Id: number) => {
+export const getHistoryById = async(user_id: number) => {
     const data = await pool.execute<(User & RowDataPacket)[]>(
         "SELECT * from game WHERE user_id = ?",
-        [user_Id],
+        [user_id],
     );
     return data[0][0];
 }
