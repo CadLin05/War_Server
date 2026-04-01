@@ -15,7 +15,9 @@
   "type": "module",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
+    "client": "cd ../War_Client && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
     "cors": "^2.8.6",
@@ -36,6 +38,7 @@
     "eslint-config-prettier": "^10.1.8",
     "nodemon": "^3.1.14",
     "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
     "typescript": "^6.0.2"
   }
 }
