@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors"; //npm install cors should fix, still weird for me though
 import userRouter from "./routes/user.js";
 import gameRouter from "./routes/game.js";
+import { config } from "dotenv";
 //uncomment when you create the full router
 
 const app = express();

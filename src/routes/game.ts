@@ -19,8 +19,9 @@ router.post("/saveGame", authenticate, async(req, res)=>{
             result,
             rounds,
          );
-         res.json({ status: "success"  }); //data: { can we print out a game saved? }
+         res.json({ status: "success"   }); //data: { can we print out a game saved? }
          } catch (error) {
+            console.error("SAVE GAME ERROR:", error);
             res.status(500).send("Something went wrong while saving a game");
          }
         

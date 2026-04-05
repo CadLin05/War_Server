@@ -22,20 +22,28 @@ export const registerUser = async (username: string, password: string) => {
 
 
 export const getUserByName = async (username: string) => {
-  const data = await pool.execute<(User & RowDataPacket)[]>(
-    "SELECT * from user WHERE name=?",
+  const [rows] = await pool.execute<(User & RowDataPacket)[]>(
+    "SELECT * from user WHERE username=?",
     [username],
   );
 
-  return data[0][0];
+  const data = rows[0];
+  if (!data) return null;
+  //return data[0][0];
+    return {
+    id: data.user_id,
+    username: data.username,
+    password: data.password
+  };
 };
 
 
 //copied from past assignment, might work might not
 export const getHistoryById = async(user_id: number) => {
-    const data = await pool.execute<(User & RowDataPacket)[]>(
-        "SELECT * from game WHERE user_id = ?",
+    const [rows] = await pool.execute<(User & RowDataPacket)[]>(
+        "SELECT id,result,rounds,time from game WHERE user_id = ?",
         [user_id],
     );
-    return data[0][0];
+    console.log("history result: ", rows);
+    return rows;
 }

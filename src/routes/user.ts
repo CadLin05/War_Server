@@ -17,7 +17,7 @@ router.post("/register", async (req, res)=>{
       if (comparePasswords(password, password2)) {
         const created = await registerUser(username, password);
         if (created) {
-          res.json({ status: "success", data: { username: username } });
+          res.json({ status: "success", username}); //res.json({ status: "success", data: { username: username } });
         } else {
           res
             .status(500)
@@ -50,11 +50,13 @@ router.post("/login", async (req, res) => {
 
   if (username && password) {
     const exists = await getUserByName(username);
+    
     if (exists) {
+      //console.log("USER FROM DB:", exists);
       if (await validatePasswords(password, exists.password.toString("utf8"))) {
-        //Need to setup the authentication here
+       // console.log("JWT PAYLOAD:", { id: exists.user_id, username: exists.username });
         const token = await generateJWT({ id: exists.id, username: exists.username });
-        res.json({ status: "success", data: { token, user: { username } } });
+        res.json({ status: "success", token, username }); 
       } else {
         res.status(400).send(`Invalid username or password`);
       }
@@ -70,11 +72,19 @@ router.post("/login", async (req, res) => {
 //history get
 
 router.get("/history", authenticate, async(req,res)=>{
-    if (req.user){
+    console.log("req.user:", req.user);
+    console.log("user id:", req.user?.id);
+    try {
+      if (req.user){
         const history = await getHistoryById(req.user.id);
-        res.json({status: "success", data: { history }});
-    }else{
-        res.status(500).send("Somehow got past auth without setting the history data");
-    }
+        res.json({status: "success", history }); //res.json({status: "success", data: { history }});
+        //res.status(200).json(history);
+      }else{
+        res.status(403).send("Not authenticated");
+      }
+    } catch (error) {
+      console.error("error getting the history: ", error);
+    };
+    
 });
 export default router;
