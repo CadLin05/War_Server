@@ -1,3 +1,5 @@
+This is my original package.json before using kamari's
+
 {
   "name": "war_server",
   "version": "1.0.0",
@@ -13,29 +15,23 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "main.ts",
+  "main": "main.js",
   "scripts": {
-    "server": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
-    "client": "cd ../War_Client && npm run dev",
-<<<<<<< HEAD
-    "dev": "concurrently \"npm run server\" \"npm run client\""
-=======
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start:dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/main.js\""
->>>>>>> 6f695f3f3d25fabe36e9c10c90768c86f6d0d58f
   },
   "dependencies": {
+    "@eslint/js": "^10.0.1",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "globals": "^17.4.0",
     "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.20.0"
+    "mysql2": "^3.20.0",
+    "typescript-eslint": "^8.58.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
-    "@types/eslint": "^9.6.1",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.5.0",

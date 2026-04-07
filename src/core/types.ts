@@ -1,7 +1,11 @@
 
-export interface Config {
+import type { Secret } from "jsonwebtoken";
+
+export default interface Config {
   server: Server;
   database: Database;
+  passwords: Passwords;
+  jwt: JsonWebToken;
 }
 
 interface Server {
@@ -11,8 +15,20 @@ interface Server {
 
 interface Database {
   host: string;
-  port: number;
-  username: string;
+  user: string;
   password: string;
-  schema: string;
+  database: string;
+  connectionLimit: number;
+}
+
+interface Passwords {
+  salt: number;
+  strength: {
+    size: number;
+  };
+}
+
+interface JsonWebToken {
+  secret: Secret;
+  expiresIn: number;
 }

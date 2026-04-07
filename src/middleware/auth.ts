@@ -13,6 +13,8 @@ export const authenticate = async (
     if (token) {
       try {
         const decoded = await verifyJWT(token);
+        //logging to debug history issue
+        console.log("req.user:", decoded);
         req.user = decoded;
         next();
       } catch {

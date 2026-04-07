@@ -9,7 +9,7 @@ const config: Config = {
     host: process.env.DATABASE_HOST || "localhost",
     user: process.env.DATABASE_USER || "root",
     password: process.env.DATABASE_PASSWORD || "password",
-    database: process.env.DATABASE || "message_system",
+    database: process.env.DATABASE || "war",
     connectionLimit: process.env.DATABASE_CONNECTION_LIMIT
       ? parseInt(process.env.DATABASE_CONNECTION_LIMIT)
       : 10,

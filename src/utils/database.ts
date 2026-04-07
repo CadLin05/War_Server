@@ -7,6 +7,6 @@ export default mysql.createPool({
   password: config.database.password,
   database: config.database.database,
   waitForConnections: true,
-  connectionLimit: 1,
+  connectionLimit: 10,
   queueLimit: 0,
 });

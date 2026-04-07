@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `game`;
 CREATE TABLE `game` (
   `game_id` int NOT NULL,
   `user_id` int NOT NULL,
-  `result` tinyint NOT NULL,
+  `result` varchar(10) NOT NULL,
   `rounds` int NOT NULL,
   `time` datetime(6) NOT NULL,
   PRIMARY KEY (`game_id`),

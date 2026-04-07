@@ -1,14 +1,14 @@
 import { type ResultSetHeader, type RowDataPacket } from "mysql2";
 import pool from "../utils/database.js";
-import type { ClientSafeUser, User } from "../types/user.js";
+import type { User } from "../types/user.js";
 import { hashPassword } from "../utils/passwords.js";
 
-export const registerUser = async (name: string, password: string) => {
+export const registerUser = async (username: string, password: string) => {
   const hashedPassword = await hashPassword(password);
 
   const data = await pool.execute<ResultSetHeader>(
     "INSERT INTO user(username,password) VALUES(?,?)",
-    [name, hashedPassword],
+    [username, hashedPassword],
   );
 
   if (data[0].affectedRows > 0) {
@@ -21,21 +21,29 @@ export const registerUser = async (name: string, password: string) => {
 //links to logging in 
 
 
-export const getUserByName = async (name: string) => {
-  const data = await pool.execute<(User & RowDataPacket)[]>(
-    "SELECT * from user WHERE name=?",
-    [name],
+export const getUserByName = async (username: string) => {
+  const [rows] = await pool.execute<(User & RowDataPacket)[]>(
+    "SELECT * from user WHERE username=?",
+    [username],
   );
 
-  return data[0][0];
+  const data = rows[0];
+  if (!data) return null;
+  //return data[0][0];
+    return {
+    id: data.user_id,
+    username: data.username,
+    password: data.password
+  };
 };
 
 
 //copied from past assignment, might work might not
-export const getHistoryById = async(user_Id: number) => {
-    const data = await pool.execute<(User & RowDataPacket)[]>(
-        "SELECT * from game WHERE user_id = ?",
-        [user_Id],
+export const getHistoryById = async(user_id: number) => {
+    const [rows] = await pool.execute<(User & RowDataPacket)[]>(
+        "SELECT id,result,rounds,time from game WHERE user_id = ?",
+        [user_id],
     );
-    return data[0][0];
+    console.log("history result: ", rows);
+    return rows;
 }
